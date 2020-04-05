@@ -116,9 +116,10 @@ public class GoodArray<E> {
         return -1;
     }
 
-    //查找
+    //查找全部的数组
     public List<Integer> findAll(E e) {
         List<Integer> list = new ArrayList<>();
+//      从后往前查找,然后保存的索引值也是从大往小存，防止索引非法
         for (int i = size-1; i >= 0 ; i--) {
             if (data[i].equals(e)) {
                 list.add(i);

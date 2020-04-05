@@ -46,9 +46,9 @@ public class TestArray {
         arr.removeElementAll(9);
         System.out.println(arr.toString());
 
-//        arr.add(1,100);
+        arr.add(1,100);
 
-//        System.out.println(arr.toString());
+        System.out.println(arr.toString());
 //        arr.addFirst(-1);
 //        System.out.println(arr.toString());
 //        arr.remove(0);
