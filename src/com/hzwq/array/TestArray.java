@@ -1,6 +1,5 @@
 package com.hzwq.array;
 
-import javafx.print.Printer;
 
 public class TestArray {
 
