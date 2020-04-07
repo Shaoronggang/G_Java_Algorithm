@@ -1,5 +1,7 @@
 package com.hzwq.stack;
 
+import com.hzwq.array.GoodArray;
+
 /**
  * @Author: shaoRongGang
  * @Description:
@@ -7,5 +9,17 @@ package com.hzwq.stack;
  * @Modifid By:
  * @Version：
  */
-public class Stack {
+public interface Stack<E> {
+
+//    入栈
+void push(E e);
+//  出栈
+E pop();
+// 查看栈顶的元素
+E peek();
+// 获取栈中元素的大小
+int getSize();
+// 栈是否为空
+boolean isEmpty();
+
 }

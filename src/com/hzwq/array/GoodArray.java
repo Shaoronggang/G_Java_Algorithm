@@ -89,6 +89,16 @@ public class GoodArray<E> {
         return data[index];
     }
 
+    //    获取数组中最后一个元素
+    public E getLast() {
+        return get(size - 1);
+    }
+
+    //    获取数组中第一个元素
+    public E getFirst() {
+        return get(0);
+    }
+
     //   修改index索引下的元素的值
     public void set(int index, E e) {
         if (index < 0 || index > size)
@@ -146,8 +156,8 @@ public class GoodArray<E> {
 
         size--;
         data[size] = null;  // loitering objects  != memory leak   指得是主动回收相应的已经没有用的对象（暂存的）
-
-        if (size == data.length/2)
+// 时间复杂度优化，lazy策略
+        if (size == data.length/4 && data.length/2 != 0)
             reSize(data.length/2);
         return ret;
     }
