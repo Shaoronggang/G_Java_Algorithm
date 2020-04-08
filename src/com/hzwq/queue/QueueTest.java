@@ -14,11 +14,17 @@ public class QueueTest {
             arrayQueue.enqueue(i);
             System.out.println(arrayQueue);
 
-            if (i % 3 ==2){
+            if (i % 3 == 2) {
                 arrayQueue.dequeue();
                 System.out.println(arrayQueue);
             }
         }
+
+
+//取余操作
+        int a = 8 % 8;
+        System.out.println("a:" + a);
+
 
     }
 }
