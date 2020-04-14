@@ -9,6 +9,28 @@ package com.hzwq.queue;
  */
 public class QueueTest {
     public static void main(String[] args) {
+//        数组队列测试
+        arrayQueneTest();
+//        循环数组测试
+        loopQueueTest();
+
+
+    }
+
+    private static void loopQueueTest() {
+        LoopQueue<Integer> arrayQueue = new LoopQueue<>(20);
+        for (int i = 0; i < 10; i++) {
+            arrayQueue.enqueue(i);
+            System.out.println(arrayQueue);
+
+            if (i % 3 == 2) {
+                arrayQueue.dequeue();
+                System.out.println(arrayQueue);
+            }
+        }
+    }
+
+    private static void arrayQueneTest() {
         ArrayQueue<Integer> arrayQueue = new ArrayQueue<>();
         for (int i = 0; i < 10; i++) {
             arrayQueue.enqueue(i);
@@ -24,7 +46,5 @@ public class QueueTest {
 //取余操作
         int a = 8 % 8;
         System.out.println("a:" + a);
-
-
     }
 }

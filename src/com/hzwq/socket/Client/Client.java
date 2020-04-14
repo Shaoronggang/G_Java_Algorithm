@@ -19,8 +19,8 @@ public class Client {
 //            连接本地，端口2000，超时时间3000
             socket.connect(new InetSocketAddress(InetAddress.getLocalHost(),2000),3000);
             System.out.println("已发起服务器连接，并进入到后续流程~");
-            System.out.println("客户端信息："+ socket.getLocalAddress()+" P:" + socket.getLocalPort());
-            System.out.println("服务端信息："+ socket.getInetAddress()+" P:" + socket.getPort());
+            System.out.println("客户端信息："+ socket.getLocalAddress()+" P1_1_FindInt:" + socket.getLocalPort());
+            System.out.println("服务端信息："+ socket.getInetAddress()+" P1_1_FindInt:" + socket.getPort());
         } catch (IOException e) {
             e.printStackTrace();
         }

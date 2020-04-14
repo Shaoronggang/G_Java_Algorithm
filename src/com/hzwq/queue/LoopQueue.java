@@ -104,17 +104,4 @@ public class LoopQueue<E> implements Queue<E> {
         return stringBuilder.toString();
     }
 
-    public static void main(String[] args) {
-        LoopQueue<Integer> arrayQueue = new LoopQueue<>(20);
-        for (int i = 0; i < 10; i++) {
-            arrayQueue.enqueue(i);
-            System.out.println(arrayQueue);
-
-            if (i % 3 == 2) {
-                arrayQueue.dequeue();
-                System.out.println(arrayQueue);
-            }
-        }
-
-    }
 }
