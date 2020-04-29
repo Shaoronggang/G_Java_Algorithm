@@ -4,81 +4,95 @@ import java.io.*;
 import java.net.*;
 
 /**
- * @Author: shaoRongGang
- * @Description:
- * @Date:Created in 22:02 2020/3/30
- * @Modifid By:
- * @Version：
- */
+        * Tcp 是面向连接的协议,只能用于端到端的通信
+        * udp是面向无连接的协议，udp的数据包括目的端口号和源端口号，可以实现广播发送，不局限于端到端
+        * tcp 有发送，还有接收，是双向的，有反馈
+        * udp只管发送，不会有回复
+        * tcp/ip中两个进程间通信的主要模式是C/S 模型
+        * <p>
+ * 构建一个TCP的客户端  Tcp:
+         * 客户端发送数据
+         * 服务器端读取数据并打印
+         *
+         * 查看一下Socket的源码
+         */
 public class Client {
-    public static void main(String[] args) {
-        Socket socket = new Socket();
-        try {
-//            超时时间
-            socket.setSoTimeout(3000);
-//            连接本地，端口2000，超时时间3000
-            socket.connect(new InetSocketAddress(InetAddress.getLocalHost(),2000),3000);
-            System.out.println("已发起服务器连接，并进入到后续流程~");
-            System.out.println("客户端信息："+ socket.getLocalAddress()+" P1_1_FindInt:" + socket.getLocalPort());
-            System.out.println("服务端信息："+ socket.getInetAddress()+" P1_1_FindInt:" + socket.getPort());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    /**
+     * 1. 使用套接字来连接到指定服务器
+     * 2. 发送数据
+     * 3. 资源释放
+     *
+     */
 
-//      发送接收数据
+    public static void main(String[] args) throws IOException {
+        Socket socket = new Socket();
+//      设置超时时间
+        socket.setSoTimeout(3000);
+//        设置将套接字连接到具有指定超时时间的服务器
+        socket.connect(new InetSocketAddress(Inet4Address.getLocalHost(), 2000), 3000);
+
+        System.out.println("已发起服务器连接，正在进入后续流程");
+//        getLocalAddress ：获取套接字所绑定的本地地址， getLocalPort获取套接字所绑定的本地端口号
+        System.out.println("客户端信息：" + " IP:" + socket.getLocalAddress() + "Port：" + socket.getLocalPort());
+//        getInetAddress 返回套接字连接的远程地址， getPort 返回套接字连接的远程端口号
+        System.out.println("服务端信息：" + "IP:" + socket.getInetAddress() + "Port:" + socket.getPort());
+
         try {
+//          发送接收数据
             todo(socket);
         } catch (IOException e) {
-            System.out.println("异常关闭");
-        }
-
-        try {
-            socket.close();
-        } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("异常退出");
         }
 
-        System.out.println("客户端已退出");
+        //  释放资源
+        socket.close();
+        System.out.println("客户端已经退出");
 
     }
 
     /**
-     * 发送数据
+     *  发送数据
+     *  1.构建输入流
+     *  2. 构建socket输出流 然后发送到服务器
+     *  3. socket 的输入流 将从服务器接收到的数据打印出来，或者进行处理
+     *  4. 操作完需要释放资源
      * @param client
      * @throws IOException
      */
-    private static void todo(Socket client) throws IOException{
-//      读取键盘输入流
-        InputStream in= System.in;
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+    private static void todo(Socket client) throws IOException {
+        //        构建键盘输入流
+        InputStream in = System.in;
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
 
-//       得到socket的输出流，并转化为打印流
-        OutputStream out = client.getOutputStream();
-        PrintStream socketPrintStream = new PrintStream(out);
+        //  构建Socket输出流，并转换为打印流
+        OutputStream socketOutputStream = client.getOutputStream();
+        PrintStream printStream = new PrintStream(socketOutputStream);
 
-//        得到Socket输入流,并转换为BufferedReader
-        InputStream inputStream= client.getInputStream();
-        BufferedReader socketBufferReader = new BufferedReader(new InputStreamReader(inputStream));
-
-
-//       键盘读取一行
-        String str = reader.readLine();
-//        发送到服务器
-        socketPrintStream.println(str);
-
+//       从socket的输入流，并且转换为socketBufferReader
+        InputStream socketInputStream = client.getInputStream();
+        BufferedReader socketBufferReader = new BufferedReader(new InputStreamReader(socketInputStream));
         boolean flag = true;
+
         do {
-//      从服务器读取一行
-            String echo = socketBufferReader.readLine();
-            if ("bye".equalsIgnoreCase(echo)){
+// 键盘读取一行
+            String str = bufferedReader.readLine();
+//        发送到服务器
+            printStream.println(str);
+
+//        从服务器读取一行
+            String socketStr = socketBufferReader.readLine();
+
+            if ("bye".equalsIgnoreCase(socketStr))
                 flag = false;
-            }else{
-                System.out.println(echo);
-            }
+
+            else
+                System.out.println(socketStr);
         } while (flag);
 
-//        资源释放
-        socketPrintStream.close();
+
+        // 操作完资源释放
+        printStream.close();
         socketBufferReader.close();
 
     }
