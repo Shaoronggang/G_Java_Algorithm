@@ -25,9 +25,18 @@ public class Client {
      */
 
     public static void main(String[] args) throws IOException {
-        Socket socket = new Socket();
-//      设置超时时间
-        socket.setSoTimeout(3000);
+
+
+        /**
+         *  第二章节中
+         * Socket socket = new Socket();
+         * //      设置超时时间
+         *         socket.setSoTimeout(3000);
+         */
+
+        Socket socket = createSocket();
+        initSocket(socket);
+
 //        设置将套接字连接到具有指定超时时间的服务器
         socket.connect(new InetSocketAddress(Inet4Address.getLocalHost(), 2000), 3000);
 
@@ -49,6 +58,19 @@ public class Client {
         socket.close();
         System.out.println("客户端已经退出");
 
+    }
+
+    private static void initSocket(Socket socket) {
+
+    }
+
+    private static Socket createSocket() {
+        // 无代理模式，等效于空构造函数
+        Socket socket = new Socket(Proxy.NO_PROXY);
+        // 新建一份具有HTTP代理的套接字，传输数据将通过www.baidu.com:8080端口
+        Proxy  
+
+        return null;
     }
 
     /**
