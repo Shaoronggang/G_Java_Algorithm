@@ -5,19 +5,22 @@ package com.hzwq.queue;
  * @Author: shaoRongGang
  * @Description:循环队列
  * @Date:Created in 22:10 2020/4/7
- * @Modifid By:
+ * @Modifid By: shaoronggang
  * @Version：
+ *
+ * todo:
+ * 1.使用无size形式，重写循环队列
+ * 2.比较两个循环的不同，进行重写
+ *
  */
 public class LoopQueue<E> implements Queue<E> {
-    //  数组
     private E[] data;
-    //   头部/尾部指针
     private int front,tail;
-    // todo:可以尝试没有size的实现方案
+    // 队列中有多少个元素
     private int size;
 
     public LoopQueue(int capacity) {
-//        初始化一下数组,由于需要空出来一个位置，需要加一
+        // 有意识的浪费一个空间,可以用来判断队列是否元素已满
         data = (E[]) new Object[capacity + 1];
         front = 0;
         tail = 0;
@@ -28,8 +31,9 @@ public class LoopQueue<E> implements Queue<E> {
         this(10);
     }
 
-    public int getCapacity() {
-        return data.length - 1;
+    // 容积
+    public int getCapacity(){
+        return data.length -1;
     }
 
     @Override
@@ -42,66 +46,70 @@ public class LoopQueue<E> implements Queue<E> {
         return front == tail;
     }
 
+    /**
+     * 入队方法
+     * @param e
+     */
     @Override
     public void enqueue(E e) {
-        if ((tail + 1) % data.length == front) {
-            resize(getCapacity() * 2);
-        }
+    if ((tail +1)%data.length == front)
+        resize(getCapacity()*2);
 
-        data[tail] = e;
-        tail = (tail + 1) % data.length;
-        size++;
+    data[tail]  = e;
+    tail = (tail + 1)%data.length;
+    size++;
     }
 
-    //  改变容量
-    private void resize(int newCapacity) {
-        E[] newArray = (E[]) new Object[newCapacity];
+    /**
+     * 扩容方法
+     * @param newCapacity 新数组长度
+     */
+    private void resize(int newCapacity){
+        E[] newData = (E[]) new Object[newCapacity + 1];
         for (int i = 0; i < size; i++) {
-            newArray[i] = data[(front + i) % data.length];
+            // 循环队列 原来队列中的数据有一个front的偏移
+            newData[i] = data[(front + i)%data.length];
         }
-
-        data = newArray;
+        data = newData;
         front = 0;
         tail = size;
     }
 
     @Override
     public E dequeue() {
-
         if (isEmpty())
-            throw new IllegalArgumentException("Queue is Empty");
-        E res = data[front];
+            throw  new IllegalArgumentException("Cannot dequeue from an empty queue.");
+        E ret = data[front];
         data[front] = null;
-        front = (front + 1) % data.length;
+        front = (front + 1)%data.length;
         size--;
-        //        缩容,但是不为零
-        if (size == getCapacity() / 4 && getCapacity() / 2 != 0) {
-            resize(getCapacity() / 2);
-        }
+        // 为了防止空间浪费
+        if (size == getCapacity()/4 && getCapacity()/2 != 0)
+            resize(getCapacity()/2);
 
-        return res;
+        return ret;
     }
 
     @Override
     public E getFront() {
         if (isEmpty())
-            throw new IllegalArgumentException("Queue is Empty");
+            throw new IllegalArgumentException("Queue is empty");
         return data[front];
     }
 
     @Override
     public String toString() {
         StringBuffer stringBuilder = new StringBuffer();
-        stringBuilder.append(String.format("LoopQueue :size=%d , capacity = %d\n", size, data.length));
-        stringBuilder.append("front [");
-        for (int i = front; i != tail;i = (i + 1)%data.length ) {
+        stringBuilder.append(String.format("Array :size=%d , capacity = %d\n", size, getCapacity()));
+        stringBuilder.append("front[");
+        for (int i = front; i != tail; i = (i + 1)%data.length) {
             stringBuilder.append(data[i]);
-            if ((i + 1)%data.length != tail) {
+            if ((i+1)%data.length != tail) {
                 stringBuilder.append(",");
             }
         }
-        stringBuilder.append("] tail");
+        stringBuilder.append("]tail");
+
         return stringBuilder.toString();
     }
-
 }

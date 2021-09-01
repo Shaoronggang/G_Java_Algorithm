@@ -1,10 +1,12 @@
 package baseknowledge.java.Polymorphic;
 
 
+import baseknowledge.java.Polymorphic.callback.Fly;
+
 /**
  *
  */
-public abstract class Person implements Fly<FlyStatus>{
+public abstract class Person implements Fly<FlyStatus> {
     /**
      *年龄
      */
@@ -23,9 +25,16 @@ public abstract class Person implements Fly<FlyStatus>{
      * 性别：男，女，不男不女
      */
     private String gentle;
+    // 标签
+    public String tag;
 
+    // 公共无参构造函数
     public Person() {
 
+    }
+
+    public Person(int age){
+        this.age = age;
     }
 
     public Person(int age, String name, boolean isAdult) {

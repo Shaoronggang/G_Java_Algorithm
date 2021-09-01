@@ -1,6 +1,13 @@
 package com.hzwq.array;
 
 
+import baseknowledge.java.Polymorphic.FlyStatus;
+import baseknowledge.java.Polymorphic.Person;
+import com.oracle.tools.packager.Log;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+
 public class TestArray {
 
     private int age;
@@ -48,14 +55,8 @@ public class TestArray {
         arr.add(1,100);
 
         System.out.println(arr.toString());
-//        arr.addFirst(-1);
-//        System.out.println(arr.toString());
-//        arr.remove(0);
-//        arr.remove(0);
-//        arr.remove(0);
-//        arr.remove(0);
-//        arr.remove(0);
-//        System.out.println(arr.toString());
+
+
 
     }
 

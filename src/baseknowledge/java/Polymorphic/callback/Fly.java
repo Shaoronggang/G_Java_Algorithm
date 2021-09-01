@@ -1,4 +1,4 @@
-package baseknowledge.java.Polymorphic;
+package baseknowledge.java.Polymorphic.callback;
 
 /**
  * @Author:shaoronggang
@@ -7,6 +7,10 @@ package baseknowledge.java.Polymorphic;
  * @Modifid By:
  */
 public interface Fly<T> {
+    /**
+     * 飞行速度
+     */
+     long speed = 0;
 
     /**
      * 在天上这种状态

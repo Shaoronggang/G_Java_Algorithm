@@ -21,26 +21,46 @@ public class ArrayQueue<E> implements Queue<E> {
         this.array = new GoodArray<>();
     }
 
+    /**
+     * 获取队列的长度
+     * @return
+     */
     @Override
     public int getSize() {
         return array.getSize();
     }
 
+    /**
+     * 队列长度是否是空
+     * @return
+     */
     @Override
     public boolean isEmpty() {
         return array.isEmpty();
     }
 
+    /**
+     * 向队列末尾加入元素
+     * @param e
+     */
     @Override
     public void enqueue(E e) {
         array.addLast(e);
     }
 
+    /**
+     * 移除队首元素
+     * @return
+     */
     @Override
     public E dequeue() {
         return array.removeFirst();
     }
 
+    /**
+     * 获取队首元素
+     * @return
+     */
     @Override
     public E getFront() {
         return array.getFirst();

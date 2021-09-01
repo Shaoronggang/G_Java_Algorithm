@@ -68,7 +68,7 @@ public class Client {
         // 无代理模式，等效于空构造函数
         Socket socket = new Socket(Proxy.NO_PROXY);
         // 新建一份具有HTTP代理的套接字，传输数据将通过www.baidu.com:8080端口
-        Proxy  
+//        Proxy
 
         return null;
     }

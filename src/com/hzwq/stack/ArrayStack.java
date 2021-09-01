@@ -23,26 +23,31 @@ public class ArrayStack<E> implements Stack<E> {
         array = new GoodArray<>();
     }
 
+    //向栈中添加元素
     @Override
     public void push(E e) {
         array.addLast(e);
     }
 
+    //从栈中移除元素
     @Override
     public E pop() {
         return array.removeLast();
     }
 
+    //获取栈顶元素
     @Override
     public E peek() {
         return array.getLast();
     }
 
+    //获取栈中元素的长度
     @Override
     public int getSize() {
         return array.getSize();
     }
 
+    //    栈是否为空
     @Override
     public boolean isEmpty() {
         return array.isEmpty();

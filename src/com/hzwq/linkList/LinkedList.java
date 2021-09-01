@@ -67,7 +67,7 @@ public class LinkedList<E> {
     //   向链表中的指定位置添加元素e
     public void add(int index, E e) {
         if (index < 0 || index > size)
-            throw new IllegalArgumentException("Add failed,Illgal index");
+            throw new IllegalArgumentException("Add failed,Illegal index");
 
         else {
             Node prev = dummyHead;
@@ -97,17 +97,17 @@ public class LinkedList<E> {
         return cur.e;
     }
 
-    public E getFirst(){
+    public E getFirst() {
         return get(0);
     }
 
-    public E getLast(){
+    public E getLast() {
         return get(size - 1);
     }
 
 
-//    替换指定位置的元素
-    public void set(int index,E e){
+    //    替换指定位置的元素
+    public void set(int index, E e) {
         if (index < 0 || index > size)
             throw new IllegalArgumentException("set failed,Illgal index");
         Node cur = dummyHead.next;
@@ -118,14 +118,14 @@ public class LinkedList<E> {
         cur.e = e;
     }
 
-//    判断是否包含某个元素
+    //    判断是否包含某个元素
     public boolean contains(E e) {
 
         Node cur = dummyHead.next;
 //      如果不为空的话，那么说明存在这个节点
         while (cur != null) {
             if (cur.e.equals(e)) {
-               return true;
+                return true;
             }
 
             cur = cur.next;
@@ -134,13 +134,47 @@ public class LinkedList<E> {
 
     }
 
+    /**
+     * 从链表中删除一个元素
+     *时间复杂度是O（n/2) 即O（n）
+     * @param index
+     * @return
+     */
+    public E remove(int index) {
+        if (index < 0 || index > size)
+            throw new IllegalArgumentException("set failed,Illgal index");
+        // 虚拟头节点
+        Node prev = dummyHead;
+        for (int i = 0; i < index; i++) {
+            prev = prev.next;
+        }
+
+        Node retNode = prev.next;
+        prev.next = retNode.next;
+        retNode.next = null;
+        size--;
+
+        return retNode.e;
+    }
+
+    //    删除第一个元素  时间复杂度 O（1）
+    public E removeFirst() {
+        return remove(0);
+    }
+
+    //  删除最后一个元素
+    public E removeLast() {
+        return remove(size - 1);
+    }
+
     @Override
     public String toString() {
-         StringBuilder res = new StringBuilder();
+        StringBuilder res = new StringBuilder();
 
-         for (Node cur = dummyHead.next;cur!= null;cur = cur.next){
-             res.append(cur + "==>");
-         }
+        // 当前元素
+        for (Node cur = dummyHead.next; cur != null; cur = cur.next) {
+            res.append(cur + "==>");
+        }
 
 //         Node cur = dummyHead.next;
 //         while (cur != null){
@@ -148,7 +182,7 @@ public class LinkedList<E> {
 //             cur = cur.next;
 //         }
 
-         res.append("NULL");
+        res.append("NULL");
 
         return res.toString();
     }
