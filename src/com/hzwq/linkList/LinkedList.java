@@ -157,6 +157,19 @@ public class LinkedList<E> {
         return retNode.e;
     }
 
+    // 删除链表中值为e的元素
+    public Node removeElement(E e){
+    return removeElement(dummyHead.next,e);
+    }
+
+    // 使用了递归来删除值为e的元素
+    private Node removeElement(Node node,E e){
+        if (node == null)
+            return node;
+        node.next = removeElement(node.next,e);
+        return node.e == e?node.next:node;
+    }
+
     //    删除第一个元素  时间复杂度 O（1）
     public E removeFirst() {
         return remove(0);
