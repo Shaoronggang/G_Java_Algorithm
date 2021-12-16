@@ -1,5 +1,7 @@
 package com.hzwq.array;
 
+import org.omg.CORBA.Object;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,14 @@ public class GoodArray<E> {
         this(10);
     }
 
+    // 定义构造函数，自动生成动态数组
+    public GoodArray(E[] arr){
+        data = (E[]) new Object[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            data[i] = arr[i];
+        }
+        size = arr.length;
+    }
     //  获取数组的元素个数
     public int getSize() {
         return size;
@@ -141,6 +151,17 @@ public class GoodArray<E> {
         }
 
         return null;
+    }
+
+    // 交换不同下标的元素值
+    public void swap(int i,int j){
+        if (i < 0 || i < size || j < 0 || j > size){
+            throw new IllegalArgumentException("index doesn't exist");
+        }
+
+        E t = data[i];
+        data[i] = data[j];
+        data[j] = t;
     }
 
     //    删除数组指定位置数据,并且返回删除的元素
