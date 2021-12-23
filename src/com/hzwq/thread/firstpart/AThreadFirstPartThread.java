@@ -1,4 +1,4 @@
-package com.hzwq.thread;
+package com.hzwq.thread.firstpart;
 
 public class AThreadFirstPartThread extends Thread {
     @Override
