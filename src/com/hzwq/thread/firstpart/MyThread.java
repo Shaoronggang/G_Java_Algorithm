@@ -49,20 +49,33 @@ public class MyThread extends Thread {
         /*-----------------------------线程停止处理----------------------------*/
 
         /*-----------------------------sleep状态下线程停止处理----------------------------*/
-        try {
-            for (int i = 0; i < 100000; i++) {
-                System.out.println("i=" + (i + 1));
-            }
-            
-            System.out.println("start");
-            Thread.sleep(200000);
-            System.out.println("end");
-        } catch (InterruptedException e) {
-//            System.out.println("在沉睡中被停止，进入到了catch:" + this.isInterrupted());
-            System.out.println("先停止再遇到sleep！进入到了catch:" + this.isInterrupted());
-            e.printStackTrace();
-        }
+//        try {
+//            for (int i = 0; i < 100000; i++) {
+//                System.out.println("i=" + (i + 1));
+//            }
+//
+//            System.out.println("start");
+//            Thread.sleep(200000);
+//            System.out.println("end");
+//        } catch (InterruptedException e) {
+////            System.out.println("在沉睡中被停止，进入到了catch:" + this.isInterrupted());
+//            System.out.println("先停止再遇到sleep！进入到了catch:" + this.isInterrupted());
+//            e.printStackTrace();
+//        }
 
         /*-----------------------------sleep状态下线程停止处理----------------------------*/
+
+        /*-----------------------------守护线程----------------------------*/
+        int i = 0;
+        try {
+            while (true){
+                i++;
+                System.out.println("i= "+i);
+                Thread.sleep(1000);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        /*-----------------------------守护线程----------------------------*/
     }
 }

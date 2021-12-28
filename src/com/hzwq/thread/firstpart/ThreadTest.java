@@ -82,17 +82,60 @@ public class ThreadTest {
         /*------------------------------sleep状态下线程停止操作----------------------------------------*/
 
 //        try {
-            MyThread thread = new MyThread();
-            thread.start();
+//            MyThread thread = new MyThread();
+//            thread.start();
 //            Thread.sleep(200);
-            thread.interrupt();
+//            thread.interrupt();
 //        } catch (InterruptedException e) {
 //            System.out.println("main catch");
 //            e.printStackTrace();
 //        }
 
-        System.out.println("end");
+//        System.out.println("end");
         /*------------------------------sleep状态下线程停止操作----------------------------------------*/
+
+
+        /*------------------------------线程的暂停----------------------------------------*/
+        try {
+            final SynchronizeObject object = new SynchronizeObject();
+
+            Thread thread1 = new Thread(){
+                @Override
+                public void run() {
+                    object.printString();
+                }
+            };
+            thread1.setName("a");
+            thread1.start();
+
+            Thread.sleep(1000);
+
+            Thread thread2 = new Thread(){
+                @Override
+                public void run() {
+                    System.out.println("thread2 启动了，但是进入不了printString()方法！只打印一个begin");
+                    System.out.println("因为printString()方法被a线程锁定，并永远suspend暂停了！");
+                    object.printString();
+                }
+            };
+            thread2.start();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        /*------------------------------线程的暂停----------------------------------------*/
+        /*------------------------------守护线程----------------------------------------*/
+//        try {
+//            MyThread thread = new MyThread();
+//            thread.setDaemon(true); // 开启守护线程，java中典型应用就是GC，如果不存在非守护线程了，守护线程自动销毁
+//            thread.start();
+//            Thread.sleep(5000);// 非守护线程全部销毁了，守护线程也会销毁。
+//            System.out.println("我离开thread对象也不再打印了，也就是停止了！");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
+        /*------------------------------守护线程----------------------------------------*/
 
 
 
